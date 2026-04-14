@@ -56,7 +56,8 @@ def parse_summary(text):
         "pending_ads":             _find(r'Ad copy variants\s*:\s*(\d+)\s+pending', text),
         "pending_strength":        _find(r'Ad strength updates\s*:\s*(\d+)\s+pending', text),
         "copy_review_flags":       _find(r'(\d+)\s+ad\(s\)\s+flagged', text),
-        "next_run":                "",
+        "pid":                     _find(r'PID:\s*(\S+)', text),
+        "next_run":                _find(r'Next run:\s*(\d{1,2}:\d{2})', text),
         "negative_keywords":       _extract_bullets(text, r'Negative keywords added:'),
         "positive_keywords":       _extract_bullets(text, r'Keywords auto-added'),
     }
@@ -98,6 +99,13 @@ class Handler(BaseHTTPRequestHandler):
             self.send_error(404, f"{filename} not found")
 
     def serve_summary(self):
+        try:
+            subprocess.run(
+                ["git", "-C", "/Users/soumalyachakraborty/google-ads-agent", "pull"],
+                capture_output=True, text=True, timeout=15
+            )
+        except Exception:
+            pass
         result = {}
         try:
             with open(SUMMARY_PATH, "r") as f:
