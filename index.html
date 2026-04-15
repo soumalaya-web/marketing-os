@@ -636,7 +636,7 @@
         <div class="card-icon icon-orange" style="margin-bottom:0;width:44px;height:44px">📊</div>
         <div>
           <div class="modal-title">Google Ads agent</div>
-          <div class="modal-subtitle">Lead_Gen_AIAgentsBanking · Last run: 10:59 AM today</div>
+          <div class="modal-subtitle" id="m-last_run">Lead_Gen_AIAgentsBanking · Last run: 10:59 AM today</div>
         </div>
       </div>
       <button class="modal-close" onclick="closeModal()">✕</button>
@@ -819,6 +819,11 @@
         set('m-conversions', data.conversions);
         set('m-today_spend', data.today_spend);
         if (data.pid)      document.getElementById('m-pid').textContent      = data.pid;
+        if (data.last_run) {
+          const d = new Date(data.last_run);
+          const t = d.toLocaleTimeString('en-US', {hour: 'numeric', minute:'2-digit'});
+          document.getElementById('m-last_run').textContent = 'Last run: ' + t + ' today';
+        }
         if (data.next_run) document.getElementById('m-next_run').textContent = 'Next run: ' + data.next_run;
 
         // ── 2. Cap status sub-text ───────────────────────────────────

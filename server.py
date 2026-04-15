@@ -57,6 +57,7 @@ def parse_summary(text):
         "pending_strength":        _find(r'Ad strength updates\s*:\s*(\d+)\s+pending', text),
         "copy_review_flags":       _find(r'(\d+)\s+ad\(s\)\s+flagged', text),
         "pid":                     _find(r'PID:\s*(\S+)', text),
+        "last_run":                _find(r'Generated:\s*(\S+)', text),
         "next_run":                _find(r'Next run:\s*(\d{1,2}:\d{2})', text),
         "negative_keywords":       _extract_bullets(text, r'Negative keywords added:'),
         "positive_keywords":       _extract_bullets(text, r'Keywords auto-added'),
