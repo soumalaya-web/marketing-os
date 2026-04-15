@@ -771,7 +771,7 @@
       <div class="status-bar">
         <div class="status-left">
           <div class="status-dot"></div>
-          <div class="status-text">Agent running · PID <strong>35754</strong> · 5-hour interval</div>
+          <div class="status-text">Agent running · PID <strong id="m-pid">35754</strong> · 5-hour interval</div>
         </div>
         <div class="status-next" id="m-next_run">Next run: 15:59 today</div>
       </div>
@@ -818,6 +818,7 @@
         set('m-avg_cpc',     data.avg_cpc);
         set('m-conversions', data.conversions);
         set('m-today_spend', data.today_spend);
+        if (data.pid)      document.getElementById('m-pid').textContent      = data.pid;
         if (data.next_run) document.getElementById('m-next_run').textContent = 'Next run: ' + data.next_run;
 
         // ── 2. Cap status sub-text ───────────────────────────────────
